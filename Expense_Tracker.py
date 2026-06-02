@@ -25,18 +25,18 @@ def user_input():
             print('Invalid input')
             
 # Adding the expenses based on the category user gives
-def add_expense(expense_name,expense_amount,category_number):
+def add_expense(expense_name,expense_amount,category_number, filename = 'Expenses.csv'):
     
-    # Checking if the csv file exists or has any line stored 
-    file_empty = not os.path.exists('Expenses.csv') or os.path.getsize('Expenses.csv') == 0
+    # Checking if the csv file exists or has any lines stored 
+    file_empty = not os.path.exists(filename) or os.path.getsize(filename) == 0
     
     row_count = 0 
-    if os.path.exists('Expenses.csv'): 
+    if os.path.exists(filename): 
         # Read the file and count the number of rows
-        with open('Expenses.csv', 'r') as file: 
+        with open(filename, 'r') as file: 
            row_count = len(list(csv.DictReader(file)))
         
-    with open('Expenses.csv', 'a',newline='') as file: 
+    with open(filename, 'a',newline='') as file: 
         
         field_names = ['Id','Expense_Amount','Expense_Name','Category','Date'] 
         csv_writer = csv.DictWriter(file,fieldnames=field_names,delimiter=',',restval='')
@@ -56,8 +56,8 @@ def add_expense(expense_name,expense_amount,category_number):
     
         print(f'You have added {expense_name} (${expense_amount}) to your expenses')
    
-# Reading the csv file and returning total amount of expenses and total number of expenses 
-def get_expenses():
+# Reading the csv file and returning total expenses and total number of expenses 
+def get_expenses(filename = 'Expenses.csv'):
     # A dictionary containing count and total of each category 
     categories = {
         'Food' : {'count' : 0, 'total' : 0},
@@ -68,10 +68,10 @@ def get_expenses():
     }
 
     # Exit and return defult values if the file doesnt exist  
-    if not os.path.exists('Expenses.csv'): 
+    if not os.path.exists(filename): 
         return 0,0,categories
     
-    with open('Expenses.csv','r',newline='') as file : 
+    with open(filename,'r',newline='') as file : 
         
         reader = csv.DictReader(file,delimiter=',')
         
@@ -89,9 +89,9 @@ def get_expenses():
     return total_expenses, total_count, categories
 
 # Removing an expense 
-def delete_expense(expense_id): 
+def delete_expense(expense_id, filename = 'Expenses.csv'): 
     
-    with open('Expenses.csv','r') as file: 
+    with open(filename,'r') as file: 
         reader = csv.DictReader(file,delimiter=',')
         
         # Reading the csv file into list of dictionaries
@@ -111,7 +111,7 @@ def delete_expense(expense_id):
             for i in range(expense_id -1 , len(rows)):
                 rows[i]['Id'] = int(rows[i]['Id']) -  1
             
-            with open('Expenses.csv' , 'w') as file:
+            with open(filename , 'w') as file:
                 writer = csv.DictWriter(file,fieldnames=['Id','Expense_Amount','Expense_Name','Category','Date'] ,delimiter=',',restval='')
                 writer.writeheader()
                 writer.writerows(rows) 
@@ -119,13 +119,13 @@ def delete_expense(expense_id):
              print(f'The expense with id {expense_id} does not exist')
             
 # Printing all the lines in csv file to user 
-def print_expenses():
+def print_expenses(filename ='Expenses.csv'):
     
    
-    if not os.path.exists('Expenses.csv'): 
+    if not os.path.exists(filename): 
         return None
     
-    with open('Expenses.csv', 'r') as file: 
+    with open(filename, 'r') as file: 
         reader = csv.DictReader(file,delimiter=',')
         
         for line in reader:
