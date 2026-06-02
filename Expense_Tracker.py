@@ -134,7 +134,12 @@ def print_expenses(filename ='Expenses.csv'):
 # Displaying messages 
 def display_expenses(total_expenses , total_count, categories):
     
-    print(f'\nyou have {total_count} expenses totalling {round(total_expenses,2)}')
+    if total_count == 1:    
+        print(f'\nyou have {total_count} expense totalling ${round(total_expenses,2)}')
+        
+    else: 
+        print(f'\nyou have {total_count} expenses totalling ${round(total_expenses,2)}')
+        
     print('\n📈 Expenses by category: ')
     
     print(f'''\
