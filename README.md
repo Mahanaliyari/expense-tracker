@@ -32,4 +32,3 @@ python main.py
 ## Future Improvements
 - Finance dashboard with charts
 - Monthly budget warnings
-- Edit existing expenses
