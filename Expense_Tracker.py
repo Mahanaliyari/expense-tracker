@@ -2,18 +2,16 @@ import csv
 import os 
 import datetime
 
-
 # Getting user inputs and printing the messages 
 def user_input():
-    
     expense_name = input('Enter the expense name: ').strip().lower()
     expense_category = ["🍔 Food","🏡 Home","💼 Work","🎉 Fun","✨ Misc"]
     
     while True:
         try:    
             expense_amount = float(input('Enter the expense amount ($): ').strip())
-              
             print('(Expense Category) ')
+            
             for idx, i in enumerate(expense_category):
                 print(f'{idx+1}. {i}')
                 
@@ -21,14 +19,11 @@ def user_input():
             
             if not category_number in range(1,len(expense_category)+ 1) :
                 raise(ValueError) 
-            
             return expense_name,expense_amount,category_number
-        
+            
         except ValueError:
             print('Invalid input')
             
-    
- 
 # Adding the expenses based on the category user gives
 def add_expense(expense_name,expense_amount,category_number):
     
@@ -53,20 +48,16 @@ def add_expense(expense_name,expense_amount,category_number):
         current_time = datetime.datetime.now()
         time = current_time.strftime('%a/%b/%d %H:%M') 
         
-        # Using dictionary instead of 5 if/else conditions
         d = {1:'Food',2:'Home',3:'Work',4:'Fun',5:'Misc'}
-    
+        
         for key in d.keys():
             if category_number == key:
                 csv_writer.writerow({'Id': row_count + 1 ,'Expense_Amount': expense_amount,'Expense_Name':expense_name,'Category':d[key] ,'Date':time})
     
         print(f'You have added {expense_name} (${expense_amount}) to your expenses')
    
-    
-
 # Reading the csv file and returning total amount of expenses and total number of expenses 
 def get_expenses():
-    
     # A dictionary containing count and total of each category 
     categories = {
         'Food' : {'count' : 0, 'total' : 0},
@@ -96,7 +87,6 @@ def get_expenses():
     total_count = sum([categories[j]['count']for j in categories])
     
     return total_expenses, total_count, categories
-
 
 # Removing an expense 
 def delete_expense(expense_id): 
@@ -128,9 +118,6 @@ def delete_expense(expense_id):
         else: 
              print(f'The expense with id {expense_id} does not exist')
             
-                
-
-
 # Printing all the lines in csv file to user 
 def print_expenses():
     
@@ -144,8 +131,6 @@ def print_expenses():
         for line in reader:
                 print(f'\n{line['Id']}. {line['Expense_Name']} - {line['Expense_Amount']} | {line['Category']} | {line['Date']}', end="\n")
             
-
-
 # Displaying messages 
 def display_expenses(total_expenses , total_count, categories):
     
