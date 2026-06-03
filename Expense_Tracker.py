@@ -105,7 +105,7 @@ def delete_expense(expense_id, filename = 'Expenses.csv'):
                     print(f'Expense with the id {expense_id} has been removed') 
                     break
 
-        # decreasing the id of expenseses after the one that has been removed by one 
+        # Updating the IDs of remaining expenses
         if deleted:
             for i in range(expense_id -1 , len(rows)):
                 rows[i]['Id'] = int(rows[i]['Id']) -  1
