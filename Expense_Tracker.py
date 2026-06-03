@@ -80,8 +80,7 @@ def get_expenses(filename = 'Expenses.csv'):
                 if c == line['Category'] : 
                     categories[c]['count'] += 1
                     categories[c]['total'] += float(line['Expense_Amount'])
-                    
-                    
+                          
     # Calculating the total expenses of all items 
     total_expenses = sum([categories[i]['total'] for i in categories])
     total_count = sum([categories[j]['count']for j in categories])
@@ -120,8 +119,6 @@ def delete_expense(expense_id, filename = 'Expenses.csv'):
             
 # Printing all the lines in csv file to user 
 def print_expenses(filename ='Expenses.csv'):
-    
-   
     if not os.path.exists(filename): 
         return None
     
@@ -133,7 +130,6 @@ def print_expenses(filename ='Expenses.csv'):
             
 # Displaying messages 
 def display_expenses(total_expenses , total_count, categories):
-    
     if total_count == 1:    
         print(f'\nyou have {total_count} expense totalling ${round(total_expenses,2)}')
         
