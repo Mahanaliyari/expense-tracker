@@ -1,4 +1,4 @@
-# 💰 Expense Tracker
+# Expense Tracker
 
 A command-line expense tracking application built with Python that allows users to manage their daily expenses persistently using a CSV file.
 
